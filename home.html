@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HosMan+ - Home</title>
+    <style>
+        /* Integrated colors and styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb; /* Light blue background */
+            color: #333; /* Black text for readability */
+        }
+
+        nav {
+            background-color: #004080; /* Dark blue navigation bar */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00cc66; /* Green hover effect */
+        }
+
+        header {
+            text-align: center;
+            padding: 50px;
+            background: url("{{ url_for('static', filename='picture1.jpg') }}") no-repeat center center;
+            background-size: cover; /* Cover the entire header */
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #004080;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00cc66; /* Green button */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #ff3333; /* Red hover effect */
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service-link {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #004080;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .service-link:hover {
+            background-color: #00cc66;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header>
+        <h1>Welcome to HosMan+</h1>
+        <p>Your Trusted Partner in Healthcare Management</p>
+        <a href="{{ url_for('services') }}" class="btn">Explore Services</a>
+    </header>
+
+   <!-- Main Content -->
+<main>
+    <h2 style="color: #00cc66; font-weight: bold; font-size: 2em;">About Us</h2>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #333;">At HosMan+, we provide innovative healthcare solutions to streamline hospital management and improve patient care.</p>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #333;">Explore our services, learn about our mission, and contact us to know more.</p>
+</main>
+
+<!-- Services Links Section -->
+<section style="padding: 20px; text-align: center;">
+    <h2 style="color: #004080; font-size: 2em; font-weight: bold;">Our Healthcare Services</h2>
+    <a href="{{ url_for('appointment') }}" class="service-link">Schedule an Appointment</a>
+    <a href="{{ url_for('patientrecords') }}" class="service-link">Manage Patient Records</a>
+    <a href="{{ url_for('staffrecords') }}" class="service-link">Medical Staff Management</a>
+</section>
+
+<!-- Footer -->
+<footer style="text-align: center; background-color: #004080; color: white; padding: 5px 0; font-size: 0.9em; position: fixed; bottom: 0; width: 100%; left: 0;">
+    <p>&copy; 2024 HosMan+. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Records</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        nav {
+            background-color: #004080;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00cc66;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        .patient-records {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .patient-list {
+            margin: 0 auto;
+            width: 80%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #004080;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .status-appointment {
+            color: orange;
+        }
+
+        .status-treated {
+            color: green;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #004080;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Patient Records</h1>
+        <p>View and manage patient records from various diseases</p>
+    </header>
+
+    <!-- Patient Records Section -->
+    <div class="patient-records">
+        <div class="patient-list">
+            <h2>List of Patients</h2>
+            <!-- Patient Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Contact</th>
+                        <th>Disease</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Static List of 30 Patients -->
+                    <tr>
+    <td>John Doe</td>
+    <td>30</td>
+    <td>08012345678</td>
+    <td>Malaria</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Jane Smith</td>
+    <td>25</td>
+    <td>08023456789</td>
+    <td>TB</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Michael Johnson</td>
+    <td>40</td>
+    <td>08034567890</td>
+    <td>HIV</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Mary Lee</td>
+    <td>35</td>
+    <td>08045678901</td>
+    <td>Pneumonia</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Chris Brown</td>
+    <td>50</td>
+    <td>08056789012</td>
+    <td>Cancer</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Emma White</td>
+    <td>29</td>
+    <td>08067890123</td>
+    <td>Malaria</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Olivia Green</td>
+    <td>28</td>
+    <td>08078901234</td>
+    <td>TB</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Noah Harris</td>
+    <td>36</td>
+    <td>08089012345</td>
+    <td>HIV</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>William Adams</td>
+    <td>33</td>
+    <td>08090123456</td>
+    <td>Pneumonia</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>James Taylor</td>
+    <td>45</td>
+    <td>08001234567</td>
+    <td>Cancer</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Ava Martin</td>
+    <td>26</td>
+    <td>08012345679</td>
+    <td>Malaria</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Charlotte Scott</td>
+    <td>32</td>
+    <td>08023456780</td>
+    <td>TB</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Elijah Garcia</td>
+    <td>41</td>
+    <td>08034567891</td>
+    <td>HIV</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Amelia Perez</td>
+    <td>37</td>
+    <td>08045678902</td>
+    <td>Pneumonia</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Lucas Evans</td>
+    <td>38</td>
+    <td>08056789013</td>
+    <td>Cancer</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Lily King</td>
+    <td>31</td>
+    <td>08067890124</td>
+    <td>Malaria</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>David Wilson</td>
+    <td>42</td>
+    <td>08078901235</td>
+    <td>TB</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Sophia Moore</td>
+    <td>27</td>
+    <td>08089012346</td>
+    <td>HIV</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Jackson Lee</td>
+    <td>48</td>
+    <td>08090123457</td>
+    <td>Pneumonia</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Grace Walker</td>
+    <td>34</td>
+    <td>08001234568</td>
+    <td>Cancer</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Henry Allen</td>
+    <td>29</td>
+    <td>08012345680</td>
+    <td>Malaria</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Chloe Young</td>
+    <td>22</td>
+    <td>08023456781</td>
+    <td>TB</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Matthew Hernandez</td>
+    <td>39</td>
+    <td>08034567892</td>
+    <td>HIV</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Isabella Rodriguez</td>
+    <td>41</td>
+    <td>08045678903</td>
+    <td>Pneumonia</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Daniel Martinez</td>
+    <td>52</td>
+    <td>08056789014</td>
+    <td>Cancer</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Madison Thompson</td>
+    <td>30</td>
+    <td>08067890125</td>
+    <td>Malaria</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Ethan Garcia</td>
+    <td>28</td>
+    <td>08078901236</td>
+    <td>TB</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Harper Anderson</td>
+    <td>46</td>
+    <td>08089012347</td>
+    <td>HIV</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Owen Thomas</td>
+    <td>55</td>
+    <td>08090123458</td>
+    <td>Pneumonia</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Zoe Jackson</td>
+    <td>23</td>
+    <td>08001234569</td>
+    <td>Cancer</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Carter White</td>
+    <td>32</td>
+    <td>08012345681</td>
+    <td>Malaria</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Mia Harris</td>
+    <td>29</td>
+    <td>08023456782</td>
+    <td>TB</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Benjamin Robinson</td>
+    <td>33</td>
+    <td>08034567893</td>
+    <td>HIV</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>Avery Clark</td>
+    <td>30</td>
+    <td>08045678904</td>
+    <td>Pneumonia</td>
+    <td class="status-treated">Treated</td>
+</tr>
+<tr>
+    <td>Charlotte Adams</td>
+    <td>27</td>
+    <td>08056789015</td>
+    <td>Cancer</td>
+    <td class="status-appointment">Appointment</td>
+</tr>
+<tr>
+    <td>James Robinson</td>
+    <td>41</td>
+    <td>08067890126</td>
+    <
+
+                    <!-- More patient rows here... -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Patient Summary Section -->
+<!-- Include Bootstrap CSS for styling -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Include Chart.js for graph generation -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Include Bootstrap CSS for styling -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Include Chart.js for graph generation -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Patient Summary Section -->
+<div class="container my-5">
+    <h3>Patient Statistics</h3>
+
+    <!-- Disease Summary Table -->
+    <div class="disease-summary">
+        <h4>Total Patients per Disease</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Disease</th>
+                    <th>Total Patients</th>
+                </tr>
+            </thead>
+            <tbody id="disease-totals">
+                <tr><td>Malaria</td><td><span id="malaria-total">0</span></td></tr>
+                <tr><td>TB</td><td><span id="tb-total">0</span></td></tr>
+                <tr><td>HIV</td><td><span id="hiv-total">0</span></td></tr>
+                <tr><td>Pneumonia</td><td><span id="pneumonia-total">0</span></td></tr>
+                <tr><td>Cancer</td><td><span id="cancer-total">0</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Age Range Breakdown -->
+    <div class="age-range-summary mt-4">
+        <h4>Age Range Breakdown</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Age Range</th>
+                    <th>Number of Patients</th>
+                </tr>
+            </thead>
+            <tbody id="age-ranges">
+                <tr><td>1-10 years</td><td><span id="age-1-10">0</span></td></tr>
+                <tr><td>11-20 years</td><td><span id="age-11-20">0</span></td></tr>
+                <tr><td>21-30 years</td><td><span id="age-21-30">0</span></td></tr>
+                <tr><td>31-40 years</td><td><span id="age-31-40">0</span></td></tr>
+                <tr><td>41-50 years</td><td><span id="age-41-50">0</span></td></tr>
+                <tr><td>51+ years</td><td><span id="age-51-plus">0</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Gender Breakdown -->
+    <div class="gender-summary mt-4">
+        <h4>Gender Breakdown</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Gender</th>
+                    <th>Total Patients</th>
+                </tr>
+            </thead>
+            <tbody id="gender-distribution">
+                <tr><td>Male</td><td><span id="male-total">0</span></td></tr>
+                <tr><td>Female</td><td><span id="female-total">0</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Graphs -->
+    <div class="mt-5">
+        <h4>Patient Distribution Charts</h4>
+
+        <!-- Age Distribution Chart -->
+        <div class="mb-4">
+            <canvas id="age-chart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Gender Distribution Chart -->
+        <div class="mb-4">
+            <canvas id="gender-chart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to calculate totals dynamically and generate graphs -->
+<script>
+// Array simulating patients data with disease, gender, and age
+const patients = [
+    { name: "John Doe", age: 30, gender: "Male", disease: "Malaria" },
+    { name: "Jane Smith", age: 25, gender: "Female", disease: "TB" },
+    { name: "Michael Johnson", age: 40, gender: "Male", disease: "HIV" },
+    { name: "Mary Lee", age: 35, gender: "Female", disease: "Pneumonia" },
+    { name: "Chris Brown", age: 50, gender: "Male", disease: "Cancer" },
+    { name: "Emma White", age: 29, gender: "Female", disease: "Malaria" },
+    { name: "Olivia Green", age: 28, gender: "Female", disease: "TB" },
+    { name: "Noah Harris", age: 36, gender: "Male", disease: "HIV" },
+    { name: "William Adams", age: 33, gender: "Male", disease: "Pneumonia" },
+    { name: "James Taylor", age: 45, gender: "Male", disease: "Cancer" },
+    { name: "Ava Martin", age: 26, gender: "Female", disease: "Malaria" },
+    { name: "Charlotte Scott", age: 32, gender: "Female", disease: "TB" },
+    { name: "Elijah Garcia", age: 41, gender: "Male", disease: "HIV" },
+    { name: "Amelia Perez", age: 37, gender: "Female", disease: "Pneumonia" },
+    { name: "Lucas Evans", age: 38, gender: "Male", disease: "Cancer" },
+    { name: "Lily King", age: 31, gender: "Female", disease: "Malaria" },
+    { name: "David Wilson", age: 42, gender: "Male", disease: "TB" },
+    { name: "Sophia Moore", age: 27, gender: "Female", disease: "HIV" },
+    { name: "Jackson Lee", age: 48, gender: "Male", disease: "Pneumonia" },
+    { name: "Grace Walker", age: 34, gender: "Female", disease: "Cancer" },
+    { name: "Henry Allen", age: 29, gender: "Male", disease: "Malaria" },
+    { name: "Chloe Young", age: 22, gender: "Female", disease: "TB" },
+    { name: "Matthew Hernandez", age: 39, gender: "Male", disease: "HIV" },
+    { name: "Isabella Rodriguez", age: 41, gender: "Female", disease: "Pneumonia" },
+    { name: "Daniel Martinez", age: 52, gender: "Male", disease: "Cancer" },
+    { name: "Madison Thompson", age: 30, gender: "Female", disease: "Malaria" },
+    { name: "Ethan Garcia", age: 28, gender: "Male", disease: "TB" },
+    { name: "Harper Anderson", age: 46, gender: "Female", disease: "HIV" },
+    { name: "Owen Thomas", age: 55, gender: "Male", disease: "Pneumonia" },
+    { name: "Zoe Jackson", age: 23, gender: "Female", disease: "Cancer" },
+    { name: "Carter White", age: 32, gender: "Male", disease: "Malaria" },
+    { name: "Mia Harris", age: 29, gender: "Female", disease: "TB" },
+    { name: "Benjamin Robinson", age: 33, gender: "Male", disease: "HIV" },
+    { name: "Avery Clark", age: 30, gender: "Female", disease: "Pneumonia" },
+    { name: "Charlotte Adams", age: 27, gender: "Female", disease: "Cancer" },
+    { name: "James Robinson", age: 41, gender: "Male", disease: "Malaria" },
+    { name: "Oliver Wright", age: 25, gender: "Male", disease: "TB" },
+    { name: "Liam Scott", age: 37, gender: "Male", disease: "HIV" },
+    { name: "Emily Evans", age: 43, gender: "Female", disease: "Pneumonia" },
+    { name: "Jack King", age: 52, gender: "Male", disease: "Cancer" },
+    { name: "Sophia Green", age: 34, gender: "Female", disease: "Malaria" },
+    { name: "Matthew Martinez", age: 31, gender: "Male", disease: "TB" },
+    { name: "Scarlett Lee", age: 29, gender: "Female", disease: "HIV" },
+    { name: "Ella Perez", age: 47, gender: "Female", disease: "Pneumonia" }
+];
+
+// Function to count patients by disease
+function countDisease(disease) {
+    return patients.filter(patient => patient.disease === disease).length;
+}
+
+// Function to count patients by age range
+function countAgeRange(min, max) {
+    return patients.filter(patient => patient.age >= min && patient.age <= max).length;
+}
+
+// Function to count patients by gender
+function countGender(gender) {
+    return patients.filter(patient => patient.gender === gender).length;
+}
+
+// Update totals dynamically
+document.getElementById("malaria-total").textContent = countDisease("Malaria");
+document.getElementById("tb-total").textContent = countDisease("TB");
+document.getElementById("hiv-total").textContent = countDisease("HIV");
+document.getElementById("pneumonia-total").textContent = countDisease("Pneumonia");
+document.getElementById("cancer-total").textContent = countDisease("Cancer");
+
+document.getElementById("age-1-10").textContent = countAgeRange(1, 10);
+document.getElementById("age-11-20").textContent = countAgeRange(11, 20);
+document.getElementById("age-21-30").textContent = countAgeRange(21, 30);
+document.getElementById("age-31-40").textContent = countAgeRange(31, 40);
+document.getElementById("age-41-50").textContent = countAgeRange(41, 50);
+document.getElementById("age-51-plus").textContent = countAgeRange(51, 100);
+
+document.getElementById("male-total").textContent = countGender("Male");
+document.getElementById("female-total").textContent = countGender("Female");
+
+// Age Chart
+new Chart(document.getElementById("age-chart"), {
+    type: "bar",
+    data: {
+        labels: ["1-10", "11-20", "21-30", "31-40", "41-50", "51+"],
+        datasets: [{
+            label: "Number of Patients",
+            data: [
+                countAgeRange(1, 10),
+                countAgeRange(11, 20),
+                countAgeRange(21, 30),
+                countAgeRange(31, 40),
+                countAgeRange(41, 50),
+                countAgeRange(51, 100)
+            ],
+            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc", "#ff6384", "#ff9f40", "#ffcd56"],
+            borderColor: "#ddd",
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Gender Chart
+new Chart(document.getElementById("gender-chart"), {
+    type: "pie",
+    data: {
+        labels: ["Male", "Female"],
+        datasets: [{
+            data: [countGender("Male"), countGender("Female")],
+            backgroundColor: ["#36a2eb", "#ff6384"],
+            borderColor: "#ddd",
+            borderWidth: 1
+        }]
+    }
+});
+</script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HosMan+. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

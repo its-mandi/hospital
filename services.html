@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HosMan+ - Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Colors and styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            color: #333;
+        }
+
+        nav {
+            background-color: #004080;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00cc66;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(120deg, #004080, #ffcc00); /* Gold gradient */
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #004080;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .service {
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .service h3 {
+            color: #004080;
+        }
+
+        .service p {
+            color: #666;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .service a {
+            color: #004080;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .service a:hover {
+            color: #00cc66;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Services Section -->
+    <header>
+        <h1>Our Services</h1>
+        <p>Explore the range of services we offer to improve healthcare management</p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="service">
+            <h3>Appointment Scheduling</h3>
+            <p>Efficiently schedule and manage patient appointments online.</p>
+            <a href="{{ url_for('appointment') }}">Learn More</a> <!-- Link to appointment.html -->
+        </div>
+
+        <div class="service">
+            <h3>Patient Records Management</h3>
+            <p>Digitally store and manage patient records for easy access and security.</p>
+            <a href="{{ url_for('patientrecords') }}">Learn More</a> <!-- Link to patientrecords.html -->
+        </div>
+
+        <div class="service">
+            <h3>Medical Staff Management</h3>
+            <p>Manage your medical staff schedule and performance with ease.</p>
+            <a href="{{ url_for('staffrecords') }}">Learn More</a> <!-- Link to staffrecords.html -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HosMan+. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

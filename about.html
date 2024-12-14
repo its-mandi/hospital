@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HosMan+ - About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Colors and styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            color: #333;
+        }
+
+        nav {
+            background-color: #004080;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00cc66;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(120deg, #004080, #ffcc00); /* Gold gradient */
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #004080;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <header>
+        <h1>About HosMan+</h1>
+        <p>Your healthcare management solution</p>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Our Mission</h2>
+        <p>At HosMan+, we are dedicated to providing cutting-edge solutions to enhance hospital management and patient care. Our platform allows hospitals to streamline operations and improve patient experiences.</p>
+        <h3>Our Vision</h3>
+        <p>To be the leading provider of innovative healthcare management systems globally.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HosMan+. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

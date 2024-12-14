@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HosMan+ - Appointment Scheduling</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            color: #333;
+        }
+
+        nav {
+            background-color: #004080;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00cc66;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(120deg, #004080, #ffcc00);
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #004080;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .appointment-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .appointment-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .appointment-form input, .appointment-form select, .appointment-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .appointment-form button {
+            background-color: #00cc66;
+            color: white;
+            font-weight: bold;
+        }
+
+        .appointment-form button:hover {
+            background-color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <div>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Appointment Scheduling Header -->
+    <header>
+        <h1>Schedule an Appointment</h1>
+        <p>Fill out the form below to schedule your appointment with us.</p>
+    </header>
+
+    <!-- Appointment Scheduling Form -->
+    <main>
+        <div class="appointment-form">
+            <h2>Appointment Form</h2>
+            <form action="{{ url_for('appointment') }}" method="POST">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <label for="service">Select Service</label>
+                <select id="service" name="service" required>
+                    <option value="general_checkup">General Checkup</option>
+                    <option value="specialist_consultation">Specialist Consultation</option>
+                    <option value="follow_up">Follow-up Appointment</option>
+                </select>
+
+                <label for="appointment_date">Preferred Appointment Date</label>
+                <input type="date" id="appointment_date" name="appointment_date" required>
+
+                <button type="submit">Schedule Appointment</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HosMan+. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
